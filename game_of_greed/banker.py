@@ -32,8 +32,8 @@ class Banker:
 
 
 
-    def bank(self,val):
-        self.balance+=val
+    def bank(self):
+        self.balance+=self.shelved
         self.clear_shelf()
 
 
