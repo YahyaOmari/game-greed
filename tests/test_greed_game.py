@@ -14,4 +14,4 @@ def test_rolling_dice_sequence():
     actual = GameLogic.roll_dice()
     
     for key in actual:
-        assert key in range(1, 6)
+        assert key in range(1, 7)
