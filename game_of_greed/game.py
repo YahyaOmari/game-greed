@@ -36,5 +36,3 @@ class GameLogic:
 
         if len(dice_counter) == 6:
             score = 1500
-
-            
