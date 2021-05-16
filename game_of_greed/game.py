@@ -1,23 +1,38 @@
-"""Define a GameLogic class in game_of_greed/game_logic.py file.
-Handle calculating score for dice roll
-Add calculate_score static method to GameLogic class.
-The input to calculate_score is a tuple of integers that represent a dice roll.
-The output from calculate_score is an integer representing the roll’s score according to rules of game.
-
-"""
-
+from collections import Counter
 
 class GameLogic:
-    pass
+    @staticmethod
+    def calculate_score(dice_roll):
+        score=0
+        dice_counter=Counter(dice_roll)
+        for key in dice_counter:
+            count = dice_counter[key]
+            if count < 3:
+                if key == 1:
+                    score += 100
+                elif key == 5:
+                    score += 50
+            else:
+                if count >= 3:
+                    score += key * 100
+                    if key == 1:
+                        score = 1000
+                if count >= 4:
+                    if key == 1:
+                        score += 1000
+                    else:
+                        score += key * 100
+                if count >= 5:
+                    if key == 1:
+                        score += 1000
+                    else:
+                        score += key * 100
 
+                if count == 6:
+                    if key == 1:
+                        score += 1000
+                    else:
+                        score += key * 100
 
-# 6 >{3,3,3,3,3}
-
-
-"""Handle rolling dice
-Add roll_dice static method to GameLogic class.
-The input to roll_dice is an integer between 1 and 6.
-The output of roll_dice is a tuple with random values between 1 and 6.
-The length of tuple must match the argument given to roll_dice method."""
-
-
+        if len(dice_counter) == 6:
+            score = 1500
