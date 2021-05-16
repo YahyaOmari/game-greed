@@ -1,4 +1,4 @@
-from greed_game import __version__
+from game_of_greed import __version__
 
 
 def test_version():
