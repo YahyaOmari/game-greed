@@ -1,9 +1,19 @@
 # Team : 
 
-- Raneem Abdulazez  pull request : https://github.com/YahyaOmari/game-greed/pull/4  | 
+- Raneem Abdulazez:
+    1. https://github.com/YahyaOmari/game-greed/pull/4
+    2. https://github.com/YahyaOmari/game-greed/pull/7
 
-- Yahya Omari : https://github.com/YahyaOmari/game-greed/pull/3
-- Faisal Abu zaid : https://github.com/YahyaOmari/game-greed/pull/2
+- Yahya Omari:
+    1. https://github.com/YahyaOmari/game-greed/pull/3
+    2. https://github.com/YahyaOmari/game-greed/pull/6
+
+
+- Faisal Abu zaid:
+    1. https://github.com/YahyaOmari/game-greed/pull/2
+    2. https://github.com/YahyaOmari/game-greed/pull/8
+
+    
 - Manar Abdulakarim :
 
 
