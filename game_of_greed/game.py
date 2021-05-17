@@ -37,6 +37,8 @@ class GameLogic:
 
     @staticmethod
     def calculate_score(dice_roll):
+        # (6, 6, 6, 1, 2, 1)
+        # {"1":2, "2":1, "6":3}
         three_fivess=False
         score=0
         dice_counter=Counter(dice_roll)
@@ -53,14 +55,14 @@ class GameLogic:
             elif count == 2 :
                 if key == 1:
                     score = 200
-                elif key == 5:
-                    score =100
+                if key == 5:
+                    score +=100
             else:
                 if count >= 3:
                     score += key * 100
                     if key == 1:
                         score = 1000
-                    if key==5 :
+                    if key== 5 :
                         score=500
                         three_fivess=True
                 if count >= 4:
@@ -91,3 +93,44 @@ class GameLogic:
             score = 1500
 
         return score
+
+
+    def welcome_function():
+        round = 0
+        print('Welcome to Game of Greed')
+        user_input = input('Wanna play?')
+
+        if user_input == 'n':
+            print("OK. Maybe another time")
+            exit()
+        elif user_input == "y":
+            round +=1 
+            print(f"Starting round {round} \nRolling 6 dice...")
+            
+            rolling_the_dice_result = GameLogic.roll_dice()
+            print(rolling_the_dice_result)
+
+            GameLogic.roll_set()
+            return rolling_the_dice_result
+
+    def roll_set():
+        user_dice_input = input("Enter dice to keep (no spaces), or (q)uit: ")
+
+        if user_dice_input == "q":
+            exit()
+        else:
+            integer_to_list = [int(d) for d in str(user_dice_input)]
+            # print(integer_to_list)
+
+            if not range(1,7) in integer_to_list:
+                print("Cheater!! Or possibly made a typo...")
+                
+                GameLogic.roll_set()
+            else:
+                list_to_tuple_for_input = tuple(integer_to_list)
+                calculating_score = GameLogic.calculate_score(list_to_tuple_for_input)
+                print(f"Total score is {calculating_score} points")
+
+
+GameLogic.welcome_function()
+# GameLogic.roll_set()
