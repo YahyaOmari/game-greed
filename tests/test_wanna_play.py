@@ -1,4 +1,5 @@
 from tests.flow.flo import Flo
+import pytest
 
 def test_quitter():
     Flo.test('tests/flow/quitter.txt')
