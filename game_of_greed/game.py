@@ -2,8 +2,6 @@ from collections import Counter
 import random
 
 class GameLogic:
-    pass
-
 # Creating roll dice function
     def roll_dice():
         # setup the rolls and giving them random numbers from 1 to 6 
@@ -97,6 +95,7 @@ class GameLogic:
 
     def welcome_function():
         round = 0
+
         print('Welcome to Game of Greed')
         user_input = input('Wanna play?')
 
@@ -107,30 +106,55 @@ class GameLogic:
             round +=1 
             print(f"Starting round {round} \nRolling 6 dice...")
             
+            # GameLogic.roll_set()
             rolling_the_dice_result = GameLogic.roll_dice()
             print(rolling_the_dice_result)
 
-            GameLogic.roll_set()
+            GameLogic.roll_set(rolling_the_dice_result)
             return rolling_the_dice_result
 
-    def roll_set():
+    def roll_set(result):
+
         user_dice_input = input("Enter dice to keep (no spaces), or (q)uit: ")
-
-        if user_dice_input == "q":
+        
+        if user_dice_input =='q':
             exit()
-        else:
-            integer_to_list = [int(d) for d in str(user_dice_input)]
-            # print(integer_to_list)
 
-            if not range(1,7) in integer_to_list:
-                print("Cheater!! Or possibly made a typo...")
-                
-                GameLogic.roll_set()
-            else:
+
+        integer_to_list = [int(d) for d in str(user_dice_input)]
+
+        for i in integer_to_list:
+            if i  in result:
+                print(integer_to_list)
                 list_to_tuple_for_input = tuple(integer_to_list)
+                # print(list_to_tuple_for_input)
                 calculating_score = GameLogic.calculate_score(list_to_tuple_for_input)
                 print(f"Total score is {calculating_score} points")
-
+            else:
+                print("Cheater!! Or possibly made a typo...")
+                GameLogic.roll_set(result)
+        
 
 GameLogic.welcome_function()
 # GameLogic.roll_set()
+
+
+
+
+
+
+
+    #    if user_dice_input == "q":
+    #         exit()
+    #     else:
+    #         integer_to_list = [int(d) for d in str(user_dice_input)]
+    #         # print(integer_to_list)
+
+    #         if  not  range(1,7)  in integer_to_list :
+    #             print("Cheater!! Or possibly made a typo...")
+                
+    #             # GameLogic.roll_set()
+    #         elif range(1,7)  in integer_to_list:
+    #             list_to_tuple_for_input = tuple(integer_to_list)
+    #             calculating_score = GameLogic.calculate_score(list_to_tuple_for_input)
+    #             print(f"Total score is {calculating_score} points")
