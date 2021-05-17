@@ -1,37 +1,28 @@
 from collections import Counter
 import random
 
-class GameLogic:
+class Game:
+    round = 0
+    avialable_dice = 6
+
+    def __init__(self, roll=None):
+        self.roll = roll or Game.roll_dice
+        
+
 # Creating roll dice function
-    def roll_dice():
+    def roll_dice(available_dice):
         # setup the rolls and giving them random numbers from 1 to 6 
-        first_roll =  random.randint(1,6)
-        second_roll = random.randint(1,6)
-        third_roll = random.randint(1,6)
-        fourth_roll = random.randint(1,6)
-        fifth_roll = random.randint(1,6)
-        sixth_roll = random.randint(1,6)
-
+        counter = 0
+        result = []
+        while counter < available_dice:
+            counter += 1
+            result.append(random.randint(1,available_dice))  
+        
         # creating tuple 
-        roll_dice_tuple = ()
-
-        # since tuple is a immutable object so I want to convert tuple to list
-        # by built in function list() so I can append anything to the list
-        roll_dice_list = list(roll_dice_tuple)
-
-        # so now we can append to the list 
-        roll_dice_list.append(first_roll)
-        roll_dice_list.append(second_roll)
-        roll_dice_list.append(third_roll)
-        roll_dice_list.append(fourth_roll)
-        roll_dice_list.append(fifth_roll)
-        roll_dice_list.append(sixth_roll)
-
-        # now we are using another built in function tuple() to convert this list back to tuple
-        roll_dice_tuple =  tuple(roll_dice_list)
-
+        roll_dice_tuple = tuple(result)
         return roll_dice_tuple
-        # print(roll_dice_tuple)
+
+        
 
     @staticmethod
     def calculate_score(dice_roll):
@@ -93,8 +84,9 @@ class GameLogic:
         return score
 
 
-    def welcome_function():
+    def play(self):
         round = 0
+        remaining_dice = 6
 
         print('Welcome to Game of Greed')
         user_input = input('Wanna play?')
@@ -103,58 +95,101 @@ class GameLogic:
             print("OK. Maybe another time")
             exit()
         elif user_input == "y":
-            round +=1 
-            print(f"Starting round {round} \nRolling 6 dice...")
-            
-            # GameLogic.roll_set()
-            rolling_the_dice_result = GameLogic.roll_dice()
-            print(rolling_the_dice_result)
-
-            GameLogic.roll_set(rolling_the_dice_result)
-            return rolling_the_dice_result
-
-    def roll_set(result):
-
-        user_dice_input = input("Enter dice to keep (no spaces), or (q)uit: ")
-        
-        if user_dice_input =='q':
-            exit()
-
-
-        integer_to_list = [int(d) for d in str(user_dice_input)]
-
-        for i in integer_to_list:
-            if i  in result:
-                print(integer_to_list)
-                list_to_tuple_for_input = tuple(integer_to_list)
-                # print(list_to_tuple_for_input)
-                calculating_score = GameLogic.calculate_score(list_to_tuple_for_input)
-                print(f"Total score is {calculating_score} points")
-            else:
-                print("Cheater!! Or possibly made a typo...")
-                GameLogic.roll_set(result)
-        
-
-GameLogic.welcome_function()
-# GameLogic.roll_set()
-
-
-
-
-
-
-
-    #    if user_dice_input == "q":
-    #         exit()
-    #     else:
-    #         integer_to_list = [int(d) for d in str(user_dice_input)]
-    #         # print(integer_to_list)
-
-    #         if  not  range(1,7)  in integer_to_list :
-    #             print("Cheater!! Or possibly made a typo...")
+            game_inc = Game()
+            banker_inc = Banker()
+            while True:
+                round += 1
+                print(f"Starting round {round}\nRolling {remaining_dice} dice...")
                 
-    #             # GameLogic.roll_set()
-    #         elif range(1,7)  in integer_to_list:
-    #             list_to_tuple_for_input = tuple(integer_to_list)
-    #             calculating_score = GameLogic.calculate_score(list_to_tuple_for_input)
-    #             print(f"Total score is {calculating_score} points")
+                roll_result = self.roll(remaining_dice)
+                rolling_the_dice_result = ','.join([str(i) for i in roll_result])
+                print(rolling_the_dice_result)
+                dice_input = input("Enter dice to keep (no spaces), or (q)uit: ")
+
+
+                if dice_input =='q':
+                    print(f"Total score is {banker_inc.balance} points\nThanks for playing. You earned {banker_inc.balance} points")
+                    break
+
+                else:
+                    tuple_for_input = tuple( int(num) for num in dice_input )
+                    remaining_dice = 6-len(tuple_for_input)
+                    # test_length = []
+                    # for element in tuple_for_input:
+                    #     if element in roll_result and element not in test_length:
+                    #         test_length.append(element)
+                    # if len(test_length) == len(tuple_for_input):
+                    current_score = game_inc.calculate_score(tuple_for_input)
+                    banker_inc.shelf(current_score)
+                    print (f'You have {current_score} unbanked points and {remaining_dice} dice remaining')
+                    
+
+
+
+                    roll_or_bank = input('(r)oll again, (b)ank your points or (q)uit ')
+                    if roll_or_bank == 'b':
+                        print(f'You banked {banker_inc.bank()} points in round {round}')
+                        print(f'Total score is {banker_inc.balance} points')
+                        remaining_dice = 6
+
+
+                    
+                    elif roll_or_bank == 'q':
+                        print(f"Total score is {banker_inc.balance} points")
+                        print(f"Thanks for playing. You earned {banker_inc.balance} points")
+                        break
+                    elif roll_or_bank == 'r':
+                        continue
+                    # else:
+                    #     print("Cheater!!!")
+                    #     break
+
+"""Handle banking points
+Define a Banker class
+Add a shelf instance method
+Input to shelf is the amount of points (integer)
+
+ to add to shelf >>>add points to shelf .
+shelf should temporarily store unbanked points.
+Add a bank instance method
+bank should add any points on the shelf to total and reset shelf to 0.
+bank output should be the amount of points added to total from shelf.
+Add a clear_shelf instance method
+clear_shelf should remove all unbanked points.
+"""
+
+
+class Banker:
+
+
+    def __init__(self):
+        self.shelved=0
+        self.balance=0
+    
+
+
+    #     assert banker.balance == 0
+    # assert banker.shelved == 0
+    # 
+
+    def shelf(self,val: int):
+        self.shelved+=val
+ 
+
+
+
+    def bank(self):
+        added_points = self.shelved
+        self.balance += added_points
+        self.shelved = 0
+        return added_points
+
+
+
+
+    def clear_shelf(self):
+        self.shelved=0
+
+
+test = Game()
+test.play()
