@@ -1,4 +1,5 @@
 from collections import Counter
+import collections
 import random
 
 
@@ -30,6 +31,7 @@ class Game:
         # (6, 6, 6, 1, 2, 1)
         # {"1":2, "2":1, "6":3}
         three_fivess = False
+        pairs = 0
         score = 0
         dice_counter = Counter(dice_roll)
         for key in dice_counter:
@@ -37,24 +39,26 @@ class Game:
 
             if count < 2:
                 if key == 1:
-
-                    score = 100
+                    score += 100
                 if key == 5:
                     score += 50
 
             elif count == 2:
                 if key == 1:
-                    score = 200
+                    score += 200
                 if key == 5:
                     score += 100
             else:
                 if count >= 3:
-                    score += key * 100
                     if key == 1:
                         score = 1000
-                    if key == 5:
+                    elif key == 5:
                         score = 500
                         three_fivess = True
+                    else:
+                        score += key * 100
+
+
                 if count >= 4:
                     if key == 1:
                         score += 1000
@@ -75,8 +79,13 @@ class Game:
         if len(dice_counter) == 6:
             score = 1500
 
-        if len(dice_counter) == 3 and not three_fivess:
-            score = 1500
+        for i in dice_counter:
+            if dice_counter[i] == 2:
+                pairs += 1
+                if pairs == 3:
+                    score = 0
+                    score += 1500
+                    return score
 
         return score
     @staticmethod
@@ -91,6 +100,7 @@ class Game:
 
 
     def play(self):
+        current_score = 0
         round = 0
         remaining_dice = 6
 
@@ -156,7 +166,7 @@ class Game:
                     #     if element in roll_result and element not in test_length:
                     #         test_length.append(element)
                     # if len(test_length) == len(tuple_for_input):
-                     current_score = game_inc.calculate_score(tuple_for_input)
+                     current_score += game_inc.calculate_score(tuple_for_input)
                      banker_inc.shelf(current_score)
                      print (f'You have {current_score} unbanked points and {remaining_dice} dice remaining')
                     
