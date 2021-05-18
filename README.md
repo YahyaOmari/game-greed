@@ -3,18 +3,22 @@
 - Raneem Abdulazez:
     1. https://github.com/YahyaOmari/game-greed/pull/4
     2. https://github.com/YahyaOmari/game-greed/pull/7
+    3. https://github.com/YahyaOmari/game-greed/pull/11
 
 - Yahya Omari:
     1. https://github.com/YahyaOmari/game-greed/pull/3
     2. https://github.com/YahyaOmari/game-greed/pull/6
+    2. https://github.com/YahyaOmari/game-greed/pull/12
 
 
 - Faisal Abu zaid:
     1. https://github.com/YahyaOmari/game-greed/pull/2
     2. https://github.com/YahyaOmari/game-greed/pull/8
+    3. https://github.com/YahyaOmari/game-greed/pull/13
 
     
 - Manar Abdulakarim :
+    1. https://github.com/YahyaOmari/game-greed/pull/10 
 
 
 # Functionality :
