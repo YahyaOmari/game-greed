@@ -113,7 +113,7 @@ class Game:
 
                 else:
                     tuple_for_input = tuple( int(num) for num in dice_input )
-                    remaining_dice = 6-len(tuple_for_input)
+                    remaining_dice -= len(tuple_for_input)
                     # test_length = []
                     # for element in tuple_for_input:
                     #     if element in roll_result and element not in test_length:
