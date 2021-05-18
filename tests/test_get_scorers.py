@@ -18,5 +18,5 @@ pytestmark = [pytest.mark.version_3]
 )
 
 def test_get_scorers(test_input, expected):
-    actual = Game.calculate_score(test_input)
+    actual = Game.get_scores(test_input)
     assert sorted(actual) == sorted(expected)

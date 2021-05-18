@@ -29,4 +29,3 @@ To store the dice values in the shelf , and we can clear the shelf as well .
 According to the rules , the score is calculated precisely and a final result is returned .
 
 
-
