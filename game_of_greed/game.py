@@ -79,6 +79,16 @@ class Game:
             score = 1500
 
         return score
+    @staticmethod
+    def get_score(roll):
+        x=Game.calculate_score(roll)
+        if x==0:
+            # zilch()
+            print('zilch-form getscore')
+            return True
+        else:
+            return False
+
 
     def play(self):
         round = 0
@@ -101,7 +111,14 @@ class Game:
                 dice_list = [str(i) for i in roll_result]
                 rolling_the_dice_result = ' '.join([str(i) for i in roll_result])
                 print(f'*** {rolling_the_dice_result} ***')
+                getScore= Game.get_score(roll_result)
+                if getScore:
+                    print('zilch')
+                    remaining_dice=6
+                    continue
+
                 dice_input = input("Enter dice to keep, or (q)uit:")
+
                 dice_input = dice_input.replace(' ','')
                 # print(f'*** {dice_input}')
 
@@ -112,11 +129,17 @@ class Game:
 
                 else:
                      while not fair_game:
+
                         print('Cheater!!! Or possibly made a typo...')
                         print(f'*** {rolling_the_dice_result} ***')
                         dice_input = input("Enter dice to keep, or (q)uit:")
                         dice_input = dice_input.replace(' ','')
                         fair_game = self.cheat(dice_input, dice_list)
+                        getScore= Game.get_score(roll_result)
+                        if getScore:
+                            print('zilch')
+                            remaining_dice=6
+                            continue
                         if dice_input == 'q':
                             print(f"Total score is {banker_inc.balance} points\nThanks for playing. You earned {banker_inc.balance} points")
                             return
@@ -153,6 +176,7 @@ class Game:
                         print(f"Thanks for playing. You earned {banker_inc.balance} points")
                         break
                      elif roll_or_bank == 'r':
+                         pass
                    
 
 
