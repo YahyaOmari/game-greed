@@ -9,7 +9,30 @@ class Game:
 
     def __init__(self, roll=None):
         self.roll = roll or Game.roll_dice
-
+    @staticmethod
+    def validate_keepers(dice_list, dice_input):
+            # print("************" ,not Counter(dice_list) - Counter(dice_input))
+            # return not Counter(dice_list) - Counter(dice_input)
+        a = Counter(dice_input).most_common()
+        # print(a)
+        b = Counter(dice_list).most_common()
+        # print(b)
+        if len(a) > len(b):
+          return True
+        votes =0
+        fair_game = False
+        for i in a:
+             for j in b:
+                 if i[0] == j[0]:
+                     if i[1] <= j[1]:
+                          votes +=1
+        if len(a) == votes:
+            fair_game = True
+        #    cheating =all([characters in b for characters in a])
+        #    print(cheating)
+        # print("*****" ,  fair_game)
+        return fair_game
+    
 
 # Creating roll dice function
 
@@ -35,7 +58,9 @@ class Game:
         score = 0
         dice_counter = Counter(dice_roll)
         for key in dice_counter:
+            # print(key , "KEYYYYY")
             count = dice_counter[key]
+            print(count , "COUNTTTT")
 
             if count < 2:
                 if key == 1:
@@ -75,10 +100,13 @@ class Game:
                         score += 1000
                     else:
                         score += key * 100
+                if len(dice_counter) == 3 and not three_fivess:
+                    score = 1500000
 
         if len(dice_counter) == 6:
             score = 1500
 
+<<<<<<< HEAD
         for i in dice_counter:
             if dice_counter[i] == 2:
                 pairs += 1
@@ -86,26 +114,51 @@ class Game:
                     score = 0
                     score += 1500
                     return score
+=======
+        # if len(dice_counter) == 3 and not three_fivess:
+        #     score = 1500000
+>>>>>>> master
 
         return score
     @staticmethod
-    def get_score(roll):
+    def zilch_result(roll):
         x=Game.calculate_score(roll)
         if x==0:
             # zilch()
-            print('zilch-form getscore')
+            print('****************************************\n**        Zilch!!! Round over         **\n****************************************')
             return True
         else:
             return False
+    
+    def filtering_testing(element):
+        if element == 1 or element == 5:
+            return True
+        else:
+            return False
+        
+        
+
+    
+    def get_scores(x):
+        
+        test_list = list(x)
+        result_of_test_list = filter(Game.filtering_testing, test_list)
+        result_t = tuple(result_of_test_list)
+        return result_t
 
 
+
+<<<<<<< HEAD
     def play(self):
         current_score = 0
+=======
+    def play(self, roller):
+>>>>>>> master
         round = 0
         remaining_dice = 6
 
         print('Welcome to Game of Greed')
-        user_input = input('(y)es to play or (n)o to decline\n>')
+        user_input = input('(y)es to play or (n)o to decline\n> ')
 
         if user_input == 'n':
             print("OK. Maybe another time")
@@ -120,32 +173,33 @@ class Game:
                 roll_result = self.roll(remaining_dice)
                 dice_list = [str(i) for i in roll_result]
                 rolling_the_dice_result = ' '.join([str(i) for i in roll_result])
+                # rolling_the_dice_result = "1 2 5 1 2 1"
                 print(f'*** {rolling_the_dice_result} ***')
-                getScore= Game.get_score(roll_result)
+                getScore= Game.zilch_result(roll_result)
                 if getScore:
-                    print('zilch')
+                    # print('zilch')
                     remaining_dice=6
                     continue
 
-                dice_input = input("Enter dice to keep, or (q)uit:")
+                dice_input = input("Enter dice to keep, or (q)uit:\n> ")
 
                 dice_input = dice_input.replace(' ','')
                 # print(f'*** {dice_input}')
 
-                fair_game = self.cheat(dice_input,dice_list)
+                # fair_game = self.validate_keepers(dice_input,dice_list)
                 if dice_input =='q':
                     print(f"Total score is {banker_inc.balance} points\nThanks for playing. You earned {banker_inc.balance} points")
                     break
 
                 else:
-                     while not fair_game:
+                     while not Game.validate_keepers(dice_list, dice_input):
 
                         print('Cheater!!! Or possibly made a typo...')
                         print(f'*** {rolling_the_dice_result} ***')
-                        dice_input = input("Enter dice to keep, or (q)uit:")
+                        dice_input = input("Enter dice to keep, or (q)uit:\n> ")
                         dice_input = dice_input.replace(' ','')
-                        fair_game = self.cheat(dice_input, dice_list)
-                        getScore= Game.get_score(roll_result)
+                        fair_game = self.validate_keepers(dice_input, dice_list)
+                        getScore= Game.zilch_result(roll_result)
                         if getScore:
                             print('zilch')
                             remaining_dice=6
@@ -173,7 +227,7 @@ class Game:
 
 
 
-                     roll_or_bank = input('(r)oll again, (b)ank your points or (q)uit ')
+                     roll_or_bank = input('(r)oll again, (b)ank your points or (q)uit\n> ')
                      if roll_or_bank == 'b':
                         print(f'You banked {banker_inc.bank()} points in round {round}')
                         print(f'Total score is {banker_inc.balance} points')
@@ -186,36 +240,13 @@ class Game:
                         print(f"Thanks for playing. You earned {banker_inc.balance} points")
                         break
                      elif roll_or_bank == 'r':
-                         pass
+                        pass
                    
 
 
 
         
 
-    @staticmethod
-    def cheat(dice_input,dice_list):
-
-        a = Counter(dice_input).most_common()
-        # print(a)
-        b = Counter(dice_list).most_common()
-        # print(b)
-        if len(a) > len(b):
-          return False
-        votes =0
-        fair_game = False
-        for i in a:
-             for j in b:
-                 if i[0] == j[0]:
-                     if i[1] <= j[1]:
-                          votes +=1
-        if len(a) == votes:
-            fair_game = True
-        #    cheating =all([characters in b for characters in a])
-        #    print(cheating)
-
-
-        return fair_game
 
 
 
@@ -271,4 +302,7 @@ class Banker:
 
 # Game()
 test = Game()
-test.play()
+test.play(1)
+
+# E         -*** 6 1 2 1 2 3 ***
+# E         +*** 5 2 3 5 4 2 ***
