@@ -60,7 +60,6 @@ class Game:
         for key in dice_counter:
             # print(key , "KEYYYYY")
             count = dice_counter[key]
-            print(count , "COUNTTTT")
 
             if count < 2:
                 if key == 1:
@@ -106,7 +105,6 @@ class Game:
         if len(dice_counter) == 6:
             score = 1500
 
-<<<<<<< HEAD
         for i in dice_counter:
             if dice_counter[i] == 2:
                 pairs += 1
@@ -114,17 +112,12 @@ class Game:
                     score = 0
                     score += 1500
                     return score
-=======
-        # if len(dice_counter) == 3 and not three_fivess:
-        #     score = 1500000
->>>>>>> master
 
         return score
     @staticmethod
     def zilch_result(roll):
         x=Game.calculate_score(roll)
         if x==0:
-            # zilch()
             print('****************************************\n**        Zilch!!! Round over         **\n****************************************')
             return True
         else:
@@ -148,13 +141,9 @@ class Game:
 
 
 
-<<<<<<< HEAD
-    def play(self):
-        current_score = 0
-=======
     def play(self, roller):
->>>>>>> master
-        round = 0
+        current_score = 0
+        round = 1
         remaining_dice = 6
 
         print('Welcome to Game of Greed')
@@ -164,12 +153,10 @@ class Game:
             print("OK. Maybe another time")
             exit()
         elif user_input == "y":
+            print(f"Starting round {round}\nRolling {remaining_dice} dice...")
             game_inc = Game()
             banker_inc = Banker()
-            while True:
-                round += 1
-                print(f"Starting round {round}\nRolling {remaining_dice} dice...")
-                
+            while True:                
                 roll_result = self.roll(remaining_dice)
                 dice_list = [str(i) for i in roll_result]
                 rolling_the_dice_result = ' '.join([str(i) for i in roll_result])
@@ -177,8 +164,12 @@ class Game:
                 print(f'*** {rolling_the_dice_result} ***')
                 getScore= Game.zilch_result(roll_result)
                 if getScore:
+                    round += 1
+                    current_score = 0
                     # print('zilch')
                     remaining_dice=6
+                    print(f"Starting round {round}\nRolling {remaining_dice} dice...")
+
                     continue
 
                 dice_input = input("Enter dice to keep, or (q)uit:\n> ")
@@ -202,7 +193,11 @@ class Game:
                         getScore= Game.zilch_result(roll_result)
                         if getScore:
                             print('zilch')
+                            round+= 1
+                            current_score = 0
                             remaining_dice=6
+                            print(f"Starting round {round}\nRolling {remaining_dice} dice...")
+
                             continue
                         if dice_input == 'q':
                             print(f"Total score is {banker_inc.balance} points\nThanks for playing. You earned {banker_inc.balance} points")
@@ -221,7 +216,7 @@ class Game:
                     #         test_length.append(element)
                     # if len(test_length) == len(tuple_for_input):
                      current_score += game_inc.calculate_score(tuple_for_input)
-                     banker_inc.shelf(current_score)
+                    #  banker_inc.shelf(current_score)
                      print (f'You have {current_score} unbanked points and {remaining_dice} dice remaining')
                     
 
@@ -229,9 +224,17 @@ class Game:
 
                      roll_or_bank = input('(r)oll again, (b)ank your points or (q)uit\n> ')
                      if roll_or_bank == 'b':
+                        banker_inc.shelf(current_score)
                         print(f'You banked {banker_inc.bank()} points in round {round}')
                         print(f'Total score is {banker_inc.balance} points')
                         remaining_dice = 6
+                        current_score = 0
+                        round += 1
+                        print(f"Starting round {round}\nRolling {remaining_dice} dice...")
+
+
+
+
 
 
                     
@@ -301,8 +304,5 @@ class Banker:
 
 
 # Game()
-test = Game()
-test.play(1)
-
-# E         -*** 6 1 2 1 2 3 ***
-# E         +*** 5 2 3 5 4 2 ***
+# test = Game()
+# test.play(1)
