@@ -1,5 +1,5 @@
 import pytest
-from game_of_greed.game_logic import GameLogic
+from game_of_greed.game import Game
 
 pytestmark = [pytest.mark.version_3]
 
@@ -16,6 +16,7 @@ pytestmark = [pytest.mark.version_3]
         ((2, 3, 4), tuple()),
     ],
 )
+
 def test_get_scorers(test_input, expected):
-    actual = GameLogic.get_scorers(test_input)
+    actual = Game.calculate_score(test_input)
     assert sorted(actual) == sorted(expected)

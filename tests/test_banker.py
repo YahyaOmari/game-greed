@@ -1,6 +1,7 @@
 import pytest
 from game_of_greed.game import Banker
 
+
 pytestmark = [pytest.mark.version_1, pytest.mark.version_2]
 
 

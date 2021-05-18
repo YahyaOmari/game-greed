@@ -103,7 +103,7 @@ class Game:
                 print(f'*** {rolling_the_dice_result} ***')
                 dice_input = input("Enter dice to keep, or (q)uit:")
                 dice_input = dice_input.replace(' ','')
-                print(f'*** {dice_input}')
+                # print(f'*** {dice_input}')
 
                 fair_game = self.cheat(dice_input,dice_list)
                 if dice_input =='q':
@@ -112,19 +112,22 @@ class Game:
 
                 else:
                      while not fair_game:
-                         print('Cheater!!! Or possibly made a typo...')
-                         print(f'*** {rolling_the_dice_result} ***')
-                         dice_input = input("Enter dice to keep, or (q)uit:")
-                         dice_input = dice_input.replace(' ','')
-                         fair_game = self.cheat(dice_input, dice_list)
-                         if dice_input == 'q':
-                             print(f"Total score is {banker_inc.balance} points\nThanks for playing. You earned {banker_inc.balance} points")
-                             return
+                        print('Cheater!!! Or possibly made a typo...')
+                        print(f'*** {rolling_the_dice_result} ***')
+                        dice_input = input("Enter dice to keep, or (q)uit:")
+                        dice_input = dice_input.replace(' ','')
+                        fair_game = self.cheat(dice_input, dice_list)
+                        if dice_input == 'q':
+                            print(f"Total score is {banker_inc.balance} points\nThanks for playing. You earned {banker_inc.balance} points")
+                            return
+                                
+
 
 
 
                      tuple_for_input = tuple( int(num) for num in dice_input )
-                     remaining_dice = 6-len(tuple_for_input)
+                     remaining_dice -=len(tuple_for_input)
+                
                     # test_length = []
                     # for element in tuple_for_input:
                     #     if element in roll_result and element not in test_length:
@@ -150,7 +153,7 @@ class Game:
                         print(f"Thanks for playing. You earned {banker_inc.balance} points")
                         break
                      elif roll_or_bank == 'r':
-                        continue
+                   
 
 
 
@@ -179,6 +182,9 @@ class Game:
 
 
         return fair_game
+
+
+
 
 # """
 # Handle banking points
@@ -228,5 +234,7 @@ class Banker:
         self.shelved=0
 
 
+
+# Game()
 test = Game()
 test.play()
