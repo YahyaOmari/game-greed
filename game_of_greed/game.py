@@ -141,7 +141,8 @@ class Game:
 
 
 
-    def play(self, roller):
+    def play(self,roller=None):
+        roller = roller or self.roll
         current_score = 0
         round = 1
         remaining_dice = 6
@@ -157,7 +158,7 @@ class Game:
             game_inc = Game()
             banker_inc = Banker()
             while True:                
-                roll_result = self.roll(remaining_dice)
+                roll_result = roller(remaining_dice)
                 dice_list = [str(i) for i in roll_result]
                 rolling_the_dice_result = ' '.join([str(i) for i in roll_result])
                 # rolling_the_dice_result = "1 2 5 1 2 1"
@@ -179,7 +180,7 @@ class Game:
 
                 # fair_game = self.validate_keepers(dice_input,dice_list)
                 if dice_input =='q':
-                    print(f"Total score is {banker_inc.balance} points\nThanks for playing. You earned {banker_inc.balance} points")
+                    print(f"Thanks for playing. You earned {banker_inc.balance} points")
                     break
 
                 else:
@@ -200,7 +201,7 @@ class Game:
 
                             continue
                         if dice_input == 'q':
-                            print(f"Total score is {banker_inc.balance} points\nThanks for playing. You earned {banker_inc.balance} points")
+                            print(f"Thanks for playing. You earned {banker_inc.balance} points")
                             return
                                 
 
@@ -222,7 +223,7 @@ class Game:
 
 
 
-                     roll_or_bank = input('(r)oll again, (b)ank your points or (q)uit\n> ')
+                     roll_or_bank = input('(r)oll again, (b)ank your points or (q)uit:\n> ')
                      if roll_or_bank == 'b':
                         banker_inc.shelf(current_score)
                         print(f'You banked {banker_inc.bank()} points in round {round}')
@@ -239,7 +240,7 @@ class Game:
 
                     
                      elif roll_or_bank == 'q':
-                        print(f"Total score is {banker_inc.balance} points")
+                        # print(f"Total score is {banker_inc.balance} points")
                         print(f"Thanks for playing. You earned {banker_inc.balance} points")
                         break
                      elif roll_or_bank == 'r':
