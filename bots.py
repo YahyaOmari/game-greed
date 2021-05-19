@@ -6,7 +6,7 @@ from abc import ABC, abstractmethod
 import builtins
 import re
 from game_of_greed.game import Game
-# from game_of_greed.game_logic import GameLogic
+
 
 
 class BaseBot(ABC):
@@ -38,18 +38,24 @@ class BaseBot(ABC):
             self.real_print(text)
         elif text.startswith("Thanks for playing."):
             score = re.sub("\D", "", text)
+            
             self.total_score += int(score)
+            
 
     def _mock_print(self, *args, **kwargs):
         """steps in front of the real builtin print function"""
 
         line = " ".join(args)
 
+        
+
         if "unbanked points" in line:
 
             # parse the proper string
             # E.g. "You have 700 unbanked points and 2 dice remaining"
             unbanked_points_part, dice_remaining_part = line.split("unbanked points")
+
+            
 
             # Hold on to unbanked points and dice remaining for determining rolling vs. banking
             self.unbanked_points = int(re.sub("\D", "", unbanked_points_part))
@@ -59,6 +65,7 @@ class BaseBot(ABC):
         elif line.startswith("*** "):
 
             self.last_roll = [int(ch) for ch in line if ch.isdigit()]
+
 
         else:
             self.last_print = line
@@ -86,10 +93,10 @@ class BaseBot(ABC):
         """simulate user entering which dice to keep.
         Defaults to all scoring dice"""
 
-        roll = GameLogic.get_scorers(self.last_roll)
+        roll = Game.get_scorers(self.last_roll)
 
         roll_string = ""
-
+       
         for value in roll:
             roll_string += str(value)
 
@@ -116,12 +123,14 @@ class BaseBot(ABC):
             game = Game()
             try:
                 game.play()
+                
             except SystemExit:
                 # in game system exit is fine
                 # because that's how they quit.
                 pass
 
             mega_total += player.total_score
+            
             player.reset()
 
         print(
@@ -138,7 +147,11 @@ class NervousNellie(BaseBot):
 class YourBot(BaseBot):
     def _roll_bank_or_quit(self):
         """your logic here"""
-        return "b"
+        if self.unbanked_points > 500 or self.dice_remaining < 3:
+            return "b"
+        else:
+            return 'r'
+      
 
     def _enter_dice(self):
         """simulate user entering which dice to keep.
@@ -148,6 +161,6 @@ class YourBot(BaseBot):
 
 
 if __name__ == "__main__":
-    num_games = 100
+    num_games = 1
     NervousNellie.play(num_games)
     YourBot.play(num_games)

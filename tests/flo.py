@@ -101,7 +101,7 @@ def _extract_rolls(lines):
             roll = [int(char) for char in line if char.isdigit()]
             rolls.append(roll)
 
-    return rolls
+    return rolls    
 
 
 def _find_differences(text, expected_lines):
