@@ -44,106 +44,104 @@ class Game:
         roll_dice_tuple = tuple(result)
         return roll_dice_tuple
 
-    # @staticmethod
-    # def calculate_score(dice_roll):
-    #     # (6, 6, 6, 1, 2, 1)
-    #     # {"1":2, "2":1, "6":3}
-    #     three_fivess = False
-    #     pairs = 0
-    #     score = 0
-    #     dice_counter = Counter(dice_roll)
-    #     for key in dice_counter:
-    #         # print(key , "KEYYYYY")
-    #         count = dice_counter[key]
-
-    #         if count < 2:
-    #             if key == 1:
-    #                 score += 100
-    #             if key == 5:
-    #                 score += 50
-
-    #         elif count == 2:
-    #             if key == 1:
-    #                 score += 200
-    #             if key == 5:
-    #                 score += 100
-    #         else:
-    #             if count >= 3:
-    #                 if key == 1:
-    #                     score = 1000
-    #                 elif key == 5:
-    #                     score = 500
-    #                     three_fivess = True
-    #                 else:
-    #                     score += key * 100
-
-
-    #             if count >= 4:
-    #                 if key == 1:
-    #                     score += 1000
-    #                 else:
-    #                     score += key * 100
-    #             if count >= 5:
-    #                 if key == 1:
-    #                     score += 1000
-    #                 else:
-    #                     score += key * 100
-
-    #             if count == 6:
-    #                 if key == 1:
-    #                     score += 1000
-    #                 else:
-    #                     score += key * 100
-    #             if len(dice_counter) == 3 and not three_fivess:
-    #                 score = 1500000
-
-    #     if len(dice_counter) == 6:
-    #         score = 1500
-
-    #     for i in dice_counter:
-    #         if dice_counter[i] == 2:
-    #             pairs += 1
-    #             if pairs == 3:
-    #                 score = 0
-    #                 score += 1500
-    #                 return score
-
-    #     return score
-
     @staticmethod
     def calculate_score(dice_roll):
-
+        # (6, 6, 6, 1, 2, 1)
+        # {"1":2, "2":1, "6":3}
+        three_fivess = False
+        pairs = 0
         score = 0
-        counter = 0
+        dice_counter = Counter(dice_roll)
+        for key in dice_counter:
+            # print(key , "KEYYYYY")
+            count = dice_counter[key]
 
-        dice_roll_counter_dict = Counter(dice_roll)
-
-        for i in range(1, 7):
-            if dice_roll_counter_dict[i] == 1:
-                counter += 1
-            if dice_roll_counter_dict[i] == 2:
-                counter += 3
-
-        if counter == 6 or counter == 9:
-            score = 1500
-            return score
-
-        for key in dice_roll_counter_dict:
-
-            if dice_roll_counter_dict[key] > 2:
+            if count < 2:
                 if key == 1:
-                    score += (dice_roll_counter_dict[key]-2) * key * 1000
+                    score += 100
+                if key == 5:
+                    score += 50
 
-                else:
-                    score += (dice_roll_counter_dict[key]-2) * key * 100
+            elif count == 2:
+                if key == 1:
+                    score += 200
+                if key == 5:
+                    score += 100
+            else:
+                if count >= 3:
+                    if key == 1:
+                        score = 1000
+                    elif key == 5:
+                        score = 500
+                        three_fivess = True
+                    else:
+                        score += key * 100
 
-            elif key == 5:
-                score += dice_roll_counter_dict[key] * 50
 
-            elif key == 1:
-                score += dice_roll_counter_dict[key] * 100
+                if count >= 4:
+                    if key == 1:
+                        score += 1000
+                    else:
+                        score += key * 100
+                if count >= 5:
+                    if key == 1:
+                        score += 1000
+                    else:
+                        score += key * 100
+
+                if count == 6:
+                    if key == 1:
+                        score += 1000
+                    else:
+                        score += key * 100
+
+        if len(dice_counter) == 6:
+            score = 1500
+
+        for i in dice_counter:
+            if dice_counter[i] == 2:
+                pairs += 1
+                if pairs == 3:
+                    score = 0
+                    score += 1500
+                    return score
 
         return score
+
+    # @staticmethod
+    # def calculate_score(dice_roll):
+
+    #     score = 0
+    #     counter = 0
+
+    #     dice_roll_counter_dict = Counter(dice_roll)
+
+    #     for i in range(1, 7):
+    #         if dice_roll_counter_dict[i] == 1:
+    #             counter += 1
+    #         if dice_roll_counter_dict[i] == 2:
+    #             counter += 3
+
+    #     if counter == 6 or counter == 9:
+    #         score = 1500
+    #         return score
+
+    #     for key in dice_roll_counter_dict:
+
+    #         if dice_roll_counter_dict[key] > 2:
+    #             if key == 1:
+    #                 score += (dice_roll_counter_dict[key]-2) * key * 1000
+
+    #             else:
+    #                 score += (dice_roll_counter_dict[key]-2) * key * 100
+
+    #         elif key == 5:
+    #             score += dice_roll_counter_dict[key] * 50
+
+    #         elif key == 1:
+    #             score += dice_roll_counter_dict[key] * 100
+
+    #     return score
 
     
 

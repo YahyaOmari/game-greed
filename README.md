@@ -6,19 +6,24 @@
     3. https://github.com/YahyaOmari/game-greed/pull/11
 
 - Yahya Omari:
-    1. https://github.com/YahyaOmari/game-greed/pull/3
-    2. https://github.com/YahyaOmari/game-greed/pull/6
+    1. https://github.com/YahyaOmari/game-greed/pull/6
     2. https://github.com/YahyaOmari/game-greed/pull/12
+    3. https://github.com/YahyaOmari/game-greed/pull/16 
+    <!-- I shared my screen, and we all worked together
+
+    -->
 
 
-- Faisal Abu zaid:
+- Faisal AbuZaid:
     1. https://github.com/YahyaOmari/game-greed/pull/2
     2. https://github.com/YahyaOmari/game-greed/pull/8
     3. https://github.com/YahyaOmari/game-greed/pull/13
 
     
 - Manar Abdulakarim :
-    1. https://github.com/YahyaOmari/game-greed/pull/10 
+    1. https://github.com/YahyaOmari/game-greed/pull/3
+    2. https://github.com/YahyaOmari/game-greed/pull/10
+    3. https://github.com/YahyaOmari/game-greed/pull/15
 
 
 # Functionality :
